@@ -483,7 +483,9 @@ string StripAnsiEscapeCodes(const string& in) {
 
 int GetProcessorCount() {
 #ifdef _WIN32
-  return GetActiveProcessorCount(ALL_PROCESSOR_GROUPS);
+  SYSTEM_INFO info;
+  GetNativeSystemInfo(&info);
+  return info.dwNumberOfProcessors;
 #else
 #ifdef CPU_COUNT
   // The number of exposed processors might not represent the actual number of
